@@ -1,6 +1,6 @@
 # opencode-double-ctrl-c
 
-**Press ctrl+c twice to exit OpenCode, the way Claude Code does.** Out of the box a single ctrl+c on an empty prompt quits the OpenCode TUI immediately, which is easy to hit by reflex in a long session. This plugin makes ctrl+c behave like Claude Code:
+**Press ctrl+c twice to exit OpenCode, the way Claude Code and Codex CLI do.** Out of the box a single ctrl+c on an empty prompt quits the OpenCode TUI immediately, which is easy to hit by reflex in a long session. This plugin replicates the ctrl+c behaviour of Claude Code and Codex CLI:
 
 - text in the prompt → ctrl+c clears it
 - empty prompt → ctrl+c shows "ctrl+c again to exit"
@@ -12,7 +12,15 @@ Double-press exit is a long-standing feature request upstream ([#9041](https://g
 
 ## Install
 
-Until the npm package is published, install it as a file plugin. TUI plugins are not auto-discovered, so both steps are needed:
+```sh
+opencode plugin opencode-double-ctrl-c -g
+```
+
+That installs the package into your global OpenCode config and adds it to `tui.json`. Drop `-g` to install it for the current project only. Restart OpenCode afterwards; plugins load at startup.
+
+### Without npm
+
+TUI plugins are not auto-discovered, so a file install needs both steps:
 
 ```sh
 mkdir -p ~/.config/opencode/tui-plugins
@@ -29,20 +37,18 @@ Then add it to `~/.config/opencode/tui.json` (create the file if it does not exi
 }
 ```
 
-Restart OpenCode. No keybind changes are required: the plugin registers ctrl+c at a priority above the built-in exit binding.
-
 Do not put the file in `~/.config/opencode/plugin/`. That directory is auto-discovered for *server* plugins and will try to load it the wrong way.
 
-Once published to npm the install will be `opencode plugin opencode-double-ctrl-c`, which patches tui.json for you.
+No keybind changes are required: the plugin registers ctrl+c at a priority above the built-in exit binding.
 
 ## Options
 
 ```json
-"plugin": [["./tui-plugins/double-ctrl-c.ts", { "window": 1500, "interrupt": false, "key": "ctrl+c" }]]
+"plugin": [["opencode-double-ctrl-c", { "window": 1500, "interrupt": false, "key": "ctrl+c" }]]
 ```
 
-- `window` – milliseconds allowed between the two presses. Default 1500.
-- `interrupt` – when true, the first press on an empty prompt stops a running turn instead of arming exit, matching Claude Code fully. Default false, because escape already does that in OpenCode.
+- `window` – milliseconds allowed between the two presses. Default 1500. Codex CLI uses about 1000, Claude Code a little longer; set whichever you are used to.
+- `interrupt` – when true, the first press on an empty prompt stops a running turn instead of arming exit, which is what Claude Code and Codex CLI both do. Default false, because escape already does that in OpenCode.
 - `key` – the key to take over. Default `ctrl+c`.
 
 ## If a single press still exits

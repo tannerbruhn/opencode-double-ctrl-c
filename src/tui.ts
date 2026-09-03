@@ -1,4 +1,4 @@
-// Double ctrl+c to exit the opencode TUI, the way Claude Code does it.
+// Double ctrl+c to exit the opencode TUI, replicating Claude Code and Codex CLI.
 //
 //   ctrl+c with text in the prompt  -> clears the prompt
 //   ctrl+c with an empty prompt     -> "ctrl+c again to exit"
@@ -9,7 +9,7 @@
 // Options (tui.json):  ["./tui-plugins/double-ctrl-c.ts", { "window": 1500, "interrupt": false }]
 //   window     ms between the two presses (default 1500)
 //   interrupt  when true, the first press on an empty prompt stops a running
-//              turn instead of arming exit (Claude Code parity; escape does this anyway)
+//              turn instead of arming exit (Claude Code / Codex parity; escape does this anyway)
 //   key        the key to take over (default "ctrl+c")
 import type { TuiPlugin, TuiPluginModule } from "@opencode-ai/plugin/tui"
 
