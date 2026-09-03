@@ -1,0 +1,43 @@
+{
+  "name": "opencode-double-ctrl-c",
+  "version": "0.1.0",
+  "description": "OpenCode TUI plugin: press ctrl+c twice to exit, like Claude Code. One press clears the prompt; on an empty prompt it asks for a second press instead of quitting.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Tanner Bruhn",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tannerbruhn/opencode-double-ctrl-c.git"
+  },
+  "homepage": "https://github.com/tannerbruhn/opencode-double-ctrl-c#readme",
+  "bugs": {
+    "url": "https://github.com/tannerbruhn/opencode-double-ctrl-c/issues"
+  },
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "opencode-tui",
+    "tui",
+    "ctrl-c",
+    "keybind",
+    "exit",
+    "quit",
+    "claude-code"
+  ],
+  "oc-plugin": ["tui"],
+  "exports": {
+    "./tui": {
+      "import": "./src/tui.ts"
+    }
+  },
+  "files": ["src", "README.md", "LICENSE"],
+  "engines": {
+    "opencode": ">=1.18.18"
+  },
+  "peerDependencies": {
+    "@opencode-ai/plugin": ">=1.18.0"
+  },
+  "peerDependenciesMeta": {
+    "@opencode-ai/plugin": { "optional": true }
+  }
+}
